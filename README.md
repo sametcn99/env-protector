@@ -2,7 +2,7 @@
 
 ## Features
 
-- Toggle visibility of environment files in the sidebar. This command modifies your workspace settings by adding `"**/.env*": false` to the `files.exclude` section in your `settings.json`.
+- Toggle visibility of environment files in the sidebar. This command modifies your workspace settings by adding `"**/.env*": true` to the `files.exclude` section in your `settings.json`.
 - Asks you to confirm opening an environment file.
 - Mask sensitive environment variables in your environment files.
 
