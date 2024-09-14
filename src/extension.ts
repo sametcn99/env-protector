@@ -40,12 +40,9 @@ export function activate(context: vscode.ExtensionContext) {
 
       const disposables: vscode.Disposable[] = []
 
-      // Close quick pick if the user opens another file
+      // Close quick pick if the opened another file
       disposables.push(
         vscode.window.onDidChangeActiveTextEditor(() => {
-          vscode.window.showInformationMessage(
-            'Action cancelled because opened another file',
-          )
           quickPick.hide()
         }),
       )
