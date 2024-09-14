@@ -1,0 +1,90 @@
+{
+  "name": "env-protector",
+  "displayName": "env-protector",
+  "description": "Protect your environment files from being exposed",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "publisher": "sametcn99",
+  "icon": "icon.png",
+  "categories": [
+    "Other"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sametcn99/env-protector"
+  },
+  "activationEvents": [
+    "onStartupFinished",
+    "onLanguage:plaintext"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "env-protector.hide-env-files",
+        "title": "env-protector: Hide Environment Files",
+        "icon": {
+          "light": "./src/icons/light/hide.svg",
+          "dark": "./src/icons/dark/hide.svg"
+        },
+        "shortTitle": "Hide env files"
+      },
+      {
+        "command": "env-protector.show-env-files",
+        "title": "env-protector: Show Environment Files",
+        "icon": {
+          "light": "./icons/light/show.svg",
+          "dark": "./icons/dark/show.svg"
+        }
+      },
+      {
+        "command": "env-protector.mask-env-values",
+        "title": "env-protector: Mask Environment Values"
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "env-protector.envFileEditor",
+        "displayName": "env-protector Environment File Editor",
+        "selector": [
+          {
+            "filenamePattern": "**/.env*"
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "prettier": "npx prettier . --write"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^21.1.7",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.93.0",
+    "@typescript-eslint/eslint-plugin": "^8.3.0",
+    "@typescript-eslint/parser": "^8.3.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.9.1",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.4",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "jsdom": "^25.0.0",
+    "prettier": "^3.3.3"
+  }
+}
