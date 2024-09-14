@@ -1,12 +1,12 @@
 import { JSDOM } from 'jsdom'
 
-export function getMaskedView(text: string, extensionName: string) {
+export function getMaskedView(text: string, name: string) {
   const dom = new JSDOM()
   const htmlDocument = dom.window.document
   const p = htmlDocument.createElement('p')
 
   const a = htmlDocument.createElement('a')
-  a.textContent = extensionName
+  a.textContent = name
   a.href = 'https://sametcc.me/env-protector'
 
   p.appendChild(htmlDocument.createTextNode('Values masked by '))

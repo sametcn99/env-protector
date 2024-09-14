@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true,
     "module": "Node16",
     "target": "ES2022",
     "lib": ["ES2022"],

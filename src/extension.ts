@@ -1,24 +1,18 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { readFileSync } from 'fs'
-import path from 'path'
 import * as vscode from 'vscode'
 import { getMaskedView } from './utils/get-masked-view'
+import { name } from '.././package.json'
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  const packageJson = JSON.parse(
-    readFileSync(path.join(context.extensionPath, 'package.json'), 'utf8'),
-  )
-  const extensionName = packageJson.name
-
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
-  console.log(`${extensionName} is now active!`)
+  console.log(`${name} is now active!`)
 
   // Register the custom editor provider for the .env files
-  vscode.window.registerCustomEditorProvider(`${extensionName}.envFileEditor`, {
+  vscode.window.registerCustomEditorProvider(`${name}.envFileEditor`, {
     async resolveCustomTextEditor(document, webviewPanel) {
       const selection = await vscode.window.showQuickPick(['Yes', 'No'], {
         title: 'View .env file',
@@ -36,7 +30,7 @@ export function activate(context: vscode.ExtensionContext) {
         return
       }
       const text = document.getText()
-      webviewPanel.webview.html = getMaskedView(text, extensionName)
+      webviewPanel.webview.html = getMaskedView(text, name)
     },
   })
 
@@ -49,7 +43,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // hides the .env files in the workspace using files.exclude setting
   const hideEnvFiles = vscode.commands.registerCommand(
-    `${extensionName}.hide-env-files`,
+    `${name}.hide-env-files`,
     () => {
       // get the workspace path
       const workspacePath = vscode.workspace.workspaceFolders?.[0].uri.fsPath
@@ -74,7 +68,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // shows the .env files in the workspace using files.exclude setting
   const showEnvFiles = vscode.commands.registerCommand(
-    `${extensionName}.show-env-files`,
+    `${name}.show-env-files`,
     () => {
       // get the workspace path
       const workspacePath = vscode.workspace.workspaceFolders?.[0].uri.fsPath
@@ -99,7 +93,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // masks the values in the .env file and open in a new webview
   const maskEnvValues = vscode.commands.registerCommand(
-    `${extensionName}.mask-env-values`,
+    `${name}.mask-env-values`,
     () => {
       // Get the active text editor
       const editor = vscode.window.activeTextEditor
@@ -115,10 +109,10 @@ export function activate(context: vscode.ExtensionContext) {
       const text = document.getText()
 
       vscode.window.createWebviewPanel(
-        `${extensionName}.maskedEnvValues`,
+        `${name}.maskedEnvValues`,
         'Masked .env Values',
         vscode.ViewColumn.One,
-      ).webview.html = getMaskedView(text, extensionName)
+      ).webview.html = getMaskedView(text, name)
     },
   )
 
