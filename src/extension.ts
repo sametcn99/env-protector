@@ -1,11 +1,11 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode'
 import { getMaskedView } from './utils/get-masked-view'
 import { name } from '.././package.json'
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+/**
+ * This method is called when your extension is activated
+ * Your extension is activated the very first time the command is executed
+ */
 export function activate(context: vscode.ExtensionContext) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
@@ -14,23 +14,66 @@ export function activate(context: vscode.ExtensionContext) {
   // Register the custom editor provider for the .env files
   vscode.window.registerCustomEditorProvider(`${name}.envFileEditor`, {
     async resolveCustomTextEditor(document, webviewPanel) {
-      const selection = await vscode.window.showQuickPick(['Yes', 'No'], {
-        title: 'View .env file',
-        placeHolder: 'Do you really want to open the .env file?',
+      /**
+       * Selection options for the user to choose from
+       */
+      const options: vscode.QuickPickItem[] = [
+        {
+          label: 'Open with masked',
+          description: 'Mask environment values before opening the file',
+        },
+        {
+          label: 'Open Anyway',
+          description: 'Open file with built in editor',
+        },
+      ]
+
+      const quickPick = vscode.window.createQuickPick()
+      quickPick.items = options.map((option) => ({
+        label: option.label,
+        description: option.description,
+      }))
+      quickPick.title = 'Before opening .env file'
+      quickPick.placeholder = 'Choose an action to perform:'
+      quickPick.ignoreFocusOut = true
+      quickPick.canSelectMany = false
+
+      const disposables: vscode.Disposable[] = []
+
+      // Close quick pick if the user opens another file
+      disposables.push(
+        vscode.window.onDidChangeActiveTextEditor(() => {
+          vscode.window.showInformationMessage(
+            'Action cancelled because opened another file',
+          )
+          quickPick.hide()
+        }),
+      )
+
+      quickPick.onDidAccept(async () => {
+        const selectedItem = quickPick.selectedItems[0]
+        if (selectedItem?.label === 'Open Anyway') {
+          // Reopen the document in the default text editor without asking
+          await vscode.commands.executeCommand(
+            'vscode.openWith',
+            document.uri,
+            'default',
+          )
+          webviewPanel.dispose()
+        } else {
+          const text = document.getText()
+          webviewPanel.webview.html = getMaskedView(text, name)
+        }
+        quickPick.hide()
+        disposables.forEach((disposable) => disposable.dispose())
       })
 
-      if (selection === 'Yes') {
-        // Reopen the document in the default text editor without asking
-        await vscode.commands.executeCommand(
-          'vscode.openWith',
-          document.uri,
-          'default',
-        )
-        webviewPanel.dispose()
-        return
-      }
-      const text = document.getText()
-      webviewPanel.webview.html = getMaskedView(text, name)
+      quickPick.onDidHide(() => {
+        disposables.forEach((disposable) => disposable.dispose())
+        quickPick.dispose()
+      })
+
+      quickPick.show()
     },
   })
 
@@ -41,7 +84,9 @@ export function activate(context: vscode.ExtensionContext) {
    * The commandId parameter must match the command field in package.json
    */
 
-  // hides the .env files in the workspace using files.exclude setting
+  /**
+   * hides the .env files in the workspace using files.exclude setting
+   */
   const hideEnvFiles = vscode.commands.registerCommand(
     `${name}.hide-env-files`,
     () => {
@@ -66,7 +111,9 @@ export function activate(context: vscode.ExtensionContext) {
     },
   )
 
-  // shows the .env files in the workspace using files.exclude setting
+  /**
+   * shows the .env files in the workspace using files.exclude setting
+   */
   const showEnvFiles = vscode.commands.registerCommand(
     `${name}.show-env-files`,
     () => {
@@ -91,7 +138,9 @@ export function activate(context: vscode.ExtensionContext) {
     },
   )
 
-  // masks the values in the .env file and open in a new webview
+  /**
+   * masks the values in the .env file and open in a new webview
+   */
   const maskEnvValues = vscode.commands.registerCommand(
     `${name}.mask-env-values`,
     () => {
@@ -117,12 +166,12 @@ export function activate(context: vscode.ExtensionContext) {
   )
 
   // This line of code will only be executed once when your extension is activated
-  context.subscriptions.push(showEnvFiles)
-  context.subscriptions.push(hideEnvFiles)
-  context.subscriptions.push(maskEnvValues)
+  context.subscriptions.push(showEnvFiles, maskEnvValues, hideEnvFiles)
 }
 
-// This method is called when your extension is deactivated
+/**
+ * This method is called when your extension is deactivated
+ */
 export function deactivate() {
   console.log('Deactivated')
 }

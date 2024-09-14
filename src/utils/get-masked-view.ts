@@ -1,5 +1,16 @@
 import { JSDOM } from 'jsdom'
 
+/**
+ * Generates an HTML view with masked values from a given text and a name.
+ *
+ * @param text - The input text containing key-value pairs, typically from a .env file.
+ * @param name - The name to be displayed in the generated HTML.
+ * @returns The generated HTML string with masked values.
+ *
+ * The function creates an HTML document with a paragraph indicating the values are masked,
+ * followed by a preformatted block containing the masked key-value pairs. If the input text
+ * is empty, it indicates that no content was found in the .env file.
+ */
 export function getMaskedView(text: string, name: string) {
   const dom = new JSDOM()
   const htmlDocument = dom.window.document
@@ -22,7 +33,7 @@ export function getMaskedView(text: string, name: string) {
   if (text.length > 0) {
     const keys = text.split('\n')
     const p = htmlDocument.createElement('p')
-    p.textContent = `${keys.length} keys found in the .env file`
+    p.textContent = `${keys.length} key${keys.length > 0 ? 's' : ''} found in the .env file`
     pre.appendChild(p)
     keys.forEach((line) => {
       const code = htmlDocument.createElement('code')

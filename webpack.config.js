@@ -27,6 +27,9 @@ const extensionConfig = {
     // support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
     extensions: ['.ts', '.js'],
   },
+  stats: {
+    errorDetails: true,
+  },
   module: {
     rules: [
       {
@@ -38,11 +41,17 @@ const extensionConfig = {
           },
         ],
       },
+      {
+        test: /\.node$/,
+        use: 'node-loader',
+      },
     ],
   },
   devtool: 'nosources-source-map',
   infrastructureLogging: {
     level: 'log', // enables logging required for problem matchers
   },
-}
-module.exports = [extensionConfig]
+
+};
+
+module.exports = extensionConfig;

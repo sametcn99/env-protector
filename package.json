@@ -2,7 +2,7 @@
   "name": "env-protector",
   "displayName": "env-protector",
   "description": "Protect your environment files from being exposed",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "engines": {
     "vscode": "^1.93.0"
   },
@@ -80,13 +80,17 @@
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1",
     "eslint": "^9.9.1",
+    "node-loader": "^2.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.5.4",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "bufferutil": "^4.0.8",
+    "canvas": "^2.11.2",
     "jsdom": "^25.0.0",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "utf-8-validate": "^6.0.4"
   }
 }
