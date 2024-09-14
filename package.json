@@ -2,7 +2,7 @@
   "name": "env-protector",
   "displayName": "env-protector",
   "description": "Protect your environment files from being exposed",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.93.0"
   },
@@ -11,43 +11,44 @@
   "categories": [
     "Other"
   ],
+  "homepage": "https://sametcc.me/env-protector",
+  "author": {
+    "email": "sametcn99@gmail.com",
+    "name": "sametcn99",
+    "url": "https://sametcc.me"
+  },
+  "license": "GPL-3.0-only",
+  "readme": "README.md",
   "repository": {
     "type": "git",
     "url": "https://github.com/sametcn99/env-protector"
   },
-  "activationEvents": [
-    "onStartupFinished",
-    "onLanguage:plaintext"
-  ],
+  "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "env-protector.hide-env-files",
-        "title": "env-protector: Hide Environment Files",
-        "icon": {
-          "light": "./src/icons/light/hide.svg",
-          "dark": "./src/icons/dark/hide.svg"
-        },
-        "shortTitle": "Hide env files"
+        "title": "Hide Environment Files",
+        "shortTitle": "Hide env files",
+        "category": "env-protector"
       },
       {
         "command": "env-protector.show-env-files",
-        "title": "env-protector: Show Environment Files",
-        "icon": {
-          "light": "./icons/light/show.svg",
-          "dark": "./icons/dark/show.svg"
-        }
+        "title": "Show Environment Files",
+        "category": "env-protector"
       },
       {
         "command": "env-protector.mask-env-values",
-        "title": "env-protector: Mask Environment Values"
+        "title": "Mask Environment Values",
+        "category": "env-protector"
       }
     ],
     "customEditors": [
       {
         "viewType": "env-protector.envFileEditor",
         "displayName": "env-protector Environment File Editor",
+        "priority": "default",
         "selector": [
           {
             "filenamePattern": "**/.env*"
@@ -66,7 +67,8 @@
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src",
     "test": "vscode-test",
-    "prettier": "npx prettier . --write"
+    "prettier": "npx prettier . --write",
+    "vsce": "vsce package"
   },
   "devDependencies": {
     "@types/jsdom": "^21.1.7",

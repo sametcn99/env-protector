@@ -17,6 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
   // This line of code will only be executed once when your extension is activated
   console.log(`${extensionName} is now active!`)
 
+  // Register the custom editor provider for the .env files
   vscode.window.registerCustomEditorProvider(`${extensionName}.envFileEditor`, {
     async resolveCustomTextEditor(document, webviewPanel) {
       const selection = await vscode.window.showQuickPick(['Yes', 'No'], {
@@ -45,6 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
    * Now provide the implementation of the command with registerCommand
    * The commandId parameter must match the command field in package.json
    */
+
   // hides the .env files in the workspace using files.exclude setting
   const hideEnvFiles = vscode.commands.registerCommand(
     `${extensionName}.hide-env-files`,
@@ -83,10 +85,10 @@ export function activate(context: vscode.ExtensionContext) {
       // hide the .env files using files.exclude
       const filesConfig = vscode.workspace.getConfiguration('files')
       const exclude = filesConfig.get('exclude') as Record<string, boolean>
-      const newExclude = {
-        ...exclude,
-        '**/.env*': false,
-      }
+      // remove **/.env* from the exclude object
+      const newExclude = { ...exclude }
+      delete newExclude['**/.env*']
+
       filesConfig.update('exclude', newExclude)
 
       // The code you place here will be executed every time your command is executed
@@ -107,8 +109,9 @@ export function activate(context: vscode.ExtensionContext) {
 
       // Get the document and its content
       const document = editor.document
-      if (document.languageId !== 'dotenv')
+      if (document.languageId !== 'dotenv') {
         return vscode.window.showErrorMessage('Not a .env file')
+      }
       const text = document.getText()
 
       vscode.window.createWebviewPanel(

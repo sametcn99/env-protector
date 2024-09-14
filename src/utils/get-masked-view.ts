@@ -17,16 +17,19 @@ export function getMaskedView(text: string, extensionName: string) {
     ),
   )
 
-  // Her anahtar-değer çiftini ayrı bir code elementinde göstermek için
   const pre = htmlDocument.createElement('pre')
 
   if (text.length > 0) {
-    text.split('\n').forEach((line) => {
+    const keys = text.split('\n')
+    const p = htmlDocument.createElement('p')
+    p.textContent = `${keys.length} keys found in the .env file`
+    pre.appendChild(p)
+    keys.forEach((line) => {
       const code = htmlDocument.createElement('code')
       const [key, value] = line.split('=')
       code.textContent = value ? `${key}=${'*'.repeat(value.length)}` : line
       pre.appendChild(code)
-      pre.appendChild(htmlDocument.createElement('br')) // Satır sonu için <br> etiketi ekleyin
+      pre.appendChild(htmlDocument.createElement('br'))
     })
   } else {
     const code = htmlDocument.createElement('code')
