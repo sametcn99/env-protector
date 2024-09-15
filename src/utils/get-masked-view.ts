@@ -11,7 +11,7 @@ import { JSDOM } from 'jsdom'
  * followed by a preformatted block containing the masked key-value pairs. If the input text
  * is empty, it indicates that no content was found in the .env file.
  */
-export function getMaskedView(text: string, name: string) {
+export function getMaskedView(text: string, name: string): string {
   const dom = new JSDOM()
   const htmlDocument = dom.window.document
   const p = htmlDocument.createElement('p')
@@ -30,26 +30,40 @@ export function getMaskedView(text: string, name: string) {
 
   const pre = htmlDocument.createElement('pre')
 
-  if (text.length > 0) {
-    const keys = text.split('\n')
-    const p = htmlDocument.createElement('p')
-    p.textContent = `${keys.length} key${keys.length > 0 ? 's' : ''} found in the .env file`
-    pre.appendChild(p)
-    keys.forEach((line) => {
-      const code = htmlDocument.createElement('code')
-      const [key, value] = line.split('=')
-      code.textContent = value ? `${key}=${'*'.repeat(value.length)}` : line
-      pre.appendChild(code)
-      pre.appendChild(htmlDocument.createElement('br'))
-    })
-  } else {
+  if (text.length === 0) {
     const code = htmlDocument.createElement('code')
     code.textContent = 'No content found in the .env file'
     pre.appendChild(code)
+    htmlDocument.body.appendChild(p)
+    htmlDocument.body.appendChild(pre)
+    return htmlDocument.documentElement.outerHTML
   }
 
+  const lines = text.split('\n')
+  for (const line of lines) {
+    const trimmedLine = line.trim()
+    if (trimmedLine.startsWith('#') || trimmedLine.length === 0) {
+      const p = htmlDocument.createElement('p')
+      p.textContent = line
+      pre.appendChild(p)
+    } else {
+      // Yorum varsa, ayırmak için # işaretini kullan
+      const [keyValuePart, commentPart] = line.split('#')
+      // Key ve value'yu ayırmak için = işaretini kullan
+      const [key, value] = keyValuePart.split('=')
+      const code = htmlDocument.createElement('code')
+      // Key ve value'yu maskeli olarak ekle
+      code.textContent = `${key}=${value.replace(/./g, '*')}`
+      // Comment varsa, comment kısmını ekle
+      if (commentPart) {
+        const span = htmlDocument.createElement('span')
+        span.textContent = ` #${commentPart}`
+        code.appendChild(span)
+      }
+      pre.appendChild(code)
+    }
+  }
   htmlDocument.body.appendChild(p)
   htmlDocument.body.appendChild(pre)
-
   return htmlDocument.documentElement.outerHTML
 }
