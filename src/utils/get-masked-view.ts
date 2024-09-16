@@ -11,7 +11,7 @@ import { JSDOM } from 'jsdom'
  * followed by a preformatted block containing the masked key-value pairs. If the input text
  * is empty, it indicates that no content was found in the .env file.
  */
-export function getMaskedView(text: string, name: string) {
+export function getMaskedView(text: string, name: string): string {
   const dom = new JSDOM()
   const htmlDocument = dom.window.document
   const p = htmlDocument.createElement('p')
@@ -30,26 +30,63 @@ export function getMaskedView(text: string, name: string) {
 
   const pre = htmlDocument.createElement('pre')
 
-  if (text.length > 0) {
-    const keys = text.split('\n')
-    const p = htmlDocument.createElement('p')
-    p.textContent = `${keys.length} key${keys.length > 0 ? 's' : ''} found in the .env file`
-    pre.appendChild(p)
-    keys.forEach((line) => {
-      const code = htmlDocument.createElement('code')
-      const [key, value] = line.split('=')
-      code.textContent = value ? `${key}=${'*'.repeat(value.length)}` : line
-      pre.appendChild(code)
-      pre.appendChild(htmlDocument.createElement('br'))
-    })
-  } else {
+  if (text.length === 0) {
     const code = htmlDocument.createElement('code')
     code.textContent = 'No content found in the .env file'
     pre.appendChild(code)
+    htmlDocument.body.appendChild(p)
+    htmlDocument.body.appendChild(pre)
+    return htmlDocument.documentElement.outerHTML
   }
 
+  let keyCount: number = 0
+
+  const lines = text.split('\n')
+  for (const line of lines) {
+    const trimmedLine = line.trim()
+    const singleLineComment = htmlDocument.createElement('span')
+    if (trimmedLine.startsWith('#') || trimmedLine.length === 0) {
+      singleLineComment.textContent = line
+      singleLineComment.style.color = 'gray'
+      pre.appendChild(singleLineComment)
+    } else {
+      const [keyValuePart, commentPart] = line.split('#')
+      const [key, value] = keyValuePart.split('=')
+
+      const keySpan = htmlDocument.createElement('span')
+      keySpan.style.fontWeight = 'bold'
+      keySpan.textContent = key
+
+      const equalSignSpan = htmlDocument.createElement('span')
+      equalSignSpan.textContent = '='
+
+      const valueSpan = htmlDocument.createElement('span')
+      valueSpan.textContent = value.replace(/./g, '*')
+      valueSpan.textContent = ' ' + valueSpan.textContent
+
+      const lineDiv = htmlDocument.createElement('div')
+      lineDiv.appendChild(keySpan)
+      lineDiv.appendChild(equalSignSpan)
+      lineDiv.appendChild(valueSpan)
+      
+      if (commentPart) {
+        const commentSpan = htmlDocument.createElement('span')
+        commentSpan.textContent = ` #${commentPart}`
+        commentSpan.style.color = 'gray'
+        lineDiv.appendChild(commentSpan)
+      }
+
+      pre.appendChild(lineDiv)
+      keyCount++
+    }
+  }
+  const br = htmlDocument.createElement('br')
+  p.appendChild(br)
+  const span = htmlDocument.createElement('i')
+  span.style.fontStyle = 'italic'
+  span.textContent = `${keyCount} masked key-value pairs in the .env file`
+  p.appendChild(span)
   htmlDocument.body.appendChild(p)
   htmlDocument.body.appendChild(pre)
-
   return htmlDocument.documentElement.outerHTML
 }

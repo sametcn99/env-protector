@@ -2,7 +2,7 @@
   "name": "env-protector",
   "displayName": "env-protector",
   "description": "Protect your environment files from being exposed",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "engines": {
     "vscode": "^1.93.0"
   },
