@@ -39,30 +39,53 @@ export function getMaskedView(text: string, name: string): string {
     return htmlDocument.documentElement.outerHTML
   }
 
+  let keyCount: number = 0
+
   const lines = text.split('\n')
   for (const line of lines) {
     const trimmedLine = line.trim()
+    const singleLineComment = htmlDocument.createElement('span')
     if (trimmedLine.startsWith('#') || trimmedLine.length === 0) {
-      const p = htmlDocument.createElement('p')
-      p.textContent = line
-      pre.appendChild(p)
+      singleLineComment.textContent = line
+      singleLineComment.style.color = 'gray'
+      pre.appendChild(singleLineComment)
     } else {
-      // Yorum varsa, ayırmak için # işaretini kullan
       const [keyValuePart, commentPart] = line.split('#')
-      // Key ve value'yu ayırmak için = işaretini kullan
       const [key, value] = keyValuePart.split('=')
-      const code = htmlDocument.createElement('code')
-      // Key ve value'yu maskeli olarak ekle
-      code.textContent = `${key}=${value.replace(/./g, '*')}`
-      // Comment varsa, comment kısmını ekle
+
+      const keySpan = htmlDocument.createElement('span')
+      keySpan.style.fontWeight = 'bold'
+      keySpan.textContent = key
+
+      const equalSignSpan = htmlDocument.createElement('span')
+      equalSignSpan.textContent = '='
+
+      const valueSpan = htmlDocument.createElement('span')
+      valueSpan.textContent = value.replace(/./g, '*')
+      valueSpan.textContent = ' ' + valueSpan.textContent
+
+      const lineDiv = htmlDocument.createElement('div')
+      lineDiv.appendChild(keySpan)
+      lineDiv.appendChild(equalSignSpan)
+      lineDiv.appendChild(valueSpan)
+      
       if (commentPart) {
-        const span = htmlDocument.createElement('span')
-        span.textContent = ` #${commentPart}`
-        code.appendChild(span)
+        const commentSpan = htmlDocument.createElement('span')
+        commentSpan.textContent = ` #${commentPart}`
+        commentSpan.style.color = 'gray'
+        lineDiv.appendChild(commentSpan)
       }
-      pre.appendChild(code)
+
+      pre.appendChild(lineDiv)
+      keyCount++
     }
   }
+  const br = htmlDocument.createElement('br')
+  p.appendChild(br)
+  const span = htmlDocument.createElement('i')
+  span.style.fontStyle = 'italic'
+  span.textContent = `${keyCount} masked key-value pairs in the .env file`
+  p.appendChild(span)
   htmlDocument.body.appendChild(p)
   htmlDocument.body.appendChild(pre)
   return htmlDocument.documentElement.outerHTML
