@@ -68,7 +68,7 @@ export function getMaskedView(text: string, name: string): string {
       lineDiv.appendChild(keySpan)
       lineDiv.appendChild(equalSignSpan)
       lineDiv.appendChild(valueSpan)
-      
+
       if (commentPart) {
         const commentSpan = htmlDocument.createElement('span')
         commentSpan.textContent = ` #${commentPart}`

@@ -1,6 +1,12 @@
 import * as vscode from 'vscode'
 import { getMaskedView } from './utils/get-masked-view'
 import { name } from '.././package.json'
+import fs from 'fs'
+import { addEnvVariable } from './commands/add-env-variable'
+import { maskEnvValues } from './commands/mask-env-values'
+import { showEnvFiles } from './commands/show-env-files'
+import { hideEnvFiles } from './commands/hide-env-files'
+import { removeEnvVariable } from './commands/remove-env-variable'
 
 /**
  * This method is called when your extension is activated
@@ -74,96 +80,14 @@ export function activate(context: vscode.ExtensionContext) {
     },
   })
 
-  /**
-   * COMMANDS
-   * commands has been defined in the package.json file
-   * Now provide the implementation of the command with registerCommand
-   * The commandId parameter must match the command field in package.json
-   */
-
-  /**
-   * hides the .env files in the workspace using files.exclude setting
-   */
-  const hideEnvFiles = vscode.commands.registerCommand(
-    `${name}.hide-env-files`,
-    () => {
-      // get the workspace path
-      const workspacePath = vscode.workspace.workspaceFolders?.[0].uri.fsPath
-      if (!workspacePath) {
-        return vscode.window.showErrorMessage('No workspace found')
-      }
-
-      // hide the .env files using files.exclude
-      const filesConfig = vscode.workspace.getConfiguration('files')
-      const exclude = filesConfig.get('exclude') as Record<string, boolean>
-      const newExclude = {
-        ...exclude,
-        '**/.env*': true,
-      }
-      filesConfig.update('exclude', newExclude)
-
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
-      vscode.window.showInformationMessage('Hidden environment files')
-    },
-  )
-
-  /**
-   * shows the .env files in the workspace using files.exclude setting
-   */
-  const showEnvFiles = vscode.commands.registerCommand(
-    `${name}.show-env-files`,
-    () => {
-      // get the workspace path
-      const workspacePath = vscode.workspace.workspaceFolders?.[0].uri.fsPath
-      if (!workspacePath) {
-        return vscode.window.showErrorMessage('No workspace found')
-      }
-
-      // hide the .env files using files.exclude
-      const filesConfig = vscode.workspace.getConfiguration('files')
-      const exclude = filesConfig.get('exclude') as Record<string, boolean>
-      // remove **/.env* from the exclude object
-      const newExclude = { ...exclude }
-      delete newExclude['**/.env*']
-
-      filesConfig.update('exclude', newExclude)
-
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
-      vscode.window.showInformationMessage('Shown environment files')
-    },
-  )
-
-  /**
-   * masks the values in the .env file and open in a new webview
-   */
-  const maskEnvValues = vscode.commands.registerCommand(
-    `${name}.mask-env-values`,
-    () => {
-      // Get the active text editor
-      const editor = vscode.window.activeTextEditor
-      if (!editor) {
-        return vscode.window.showErrorMessage('No active editor found')
-      }
-
-      // Get the document and its content
-      const document = editor.document
-      if (document.languageId !== 'dotenv') {
-        return vscode.window.showErrorMessage('Not a .env file')
-      }
-      const text = document.getText()
-
-      vscode.window.createWebviewPanel(
-        `${name}.maskedEnvValues`,
-        'Masked .env Values',
-        vscode.ViewColumn.One,
-      ).webview.html = getMaskedView(text, name)
-    },
-  )
-
   // This line of code will only be executed once when your extension is activated
-  context.subscriptions.push(showEnvFiles, maskEnvValues, hideEnvFiles)
+  context.subscriptions.push(
+    showEnvFiles,
+    maskEnvValues,
+    hideEnvFiles,
+    addEnvVariable,
+    removeEnvVariable,
+  )
 }
 
 /**

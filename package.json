@@ -2,7 +2,7 @@
   "name": "env-protector",
   "displayName": "env-protector",
   "description": "Protect your environment files from being exposed",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "engines": {
     "vscode": "^1.93.0"
   },
@@ -41,6 +41,16 @@
       {
         "command": "env-protector.mask-env-values",
         "title": "Mask Environment Values",
+        "category": "env-protector"
+      },
+      {
+        "command": "env-protector.add-env-variable",
+        "title": "Add Environment Variable",
+        "category": "env-protector"
+      },
+      {
+        "command": "env-protector.remove-env-variable",
+        "title": "Remove Environment Variable",
         "category": "env-protector"
       }
     ],
