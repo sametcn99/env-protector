@@ -2,7 +2,7 @@
   "name": "env-protector",
   "displayName": "env-protector",
   "description": "Protect your environment files from being exposed",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "engines": {
     "vscode": "^1.93.0"
   },
@@ -10,6 +10,16 @@
   "icon": "icon.png",
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "env",
+    "environment",
+    "file",
+    "protect",
+    "hide",
+    "mask",
+    "security",
+    "environment manager"
   ],
   "homepage": "https://sametcc.me/env-protector",
   "author": {
