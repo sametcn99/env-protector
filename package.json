@@ -1,8 +1,8 @@
 {
   "name": "env-protector",
   "displayName": "env-protector",
-  "description": "Protect your environment files from being exposed",
-  "version": "1.0.6",
+  "description": "Protect your secrets from being exposed",
+  "version": "1.0.7",
   "engines": {
     "vscode": "^1.93.0"
   },
@@ -12,14 +12,22 @@
     "Other"
   ],
   "keywords": [
+    ".env",
+    "cloak",
+    "development",
+    "dotenv-vault",
+    "dotenv",
     "env",
+    "environment manager",
+    "environment variables",
     "environment",
     "file",
-    "protect",
     "hide",
     "mask",
-    "security",
-    "environment manager"
+    "productivity",
+    "protect",
+    "secrets",
+    "security"
   ],
   "homepage": "https://sametcc.me/env-protector",
   "author": {
