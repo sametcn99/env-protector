@@ -1,10 +1,10 @@
 {
   "name": "env-protector",
-  "displayName": "env-protector",
+  "displayName": "Env Protector",
   "description": "Protect your secrets from being exposed",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.108.0"
   },
   "publisher": "sametcn99",
   "icon": "icon.png",
@@ -29,7 +29,7 @@
     "secrets",
     "security"
   ],
-  "homepage": "https://sametcc.me/env-protector",
+  "homepage": "https://sametcc.me/project/env-protector",
   "author": {
     "email": "sametcn99@gmail.com",
     "name": "sametcn99",
@@ -104,25 +104,25 @@
     "vsce": "vsce package"
   },
   "devDependencies": {
-    "@types/jsdom": "^21.1.7",
+    "@types/jsdom": "^27.0.0",
     "@types/mocha": "^10.0.10",
-    "@types/node": "24.x",
-    "@types/vscode": "^1.103.0",
-    "@typescript-eslint/eslint-plugin": "^8.43.0",
-    "@typescript-eslint/parser": "^8.43.0",
-    "@vscode/test-cli": "^0.0.11",
+    "@types/node": "25.x",
+    "@types/vscode": "^1.108.1",
+    "@typescript-eslint/eslint-plugin": "^8.52.0",
+    "@typescript-eslint/parser": "^8.52.0",
+    "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2",
-    "eslint": "^9.35.0",
+    "eslint": "^9.39.2",
     "node-loader": "^2.1.0",
     "ts-loader": "^9.5.4",
-    "typescript": "^5.9.2",
-    "webpack": "^5.101.3",
+    "typescript": "^5.9.3",
+    "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "bufferutil": "^4.0.9",
-    "jsdom": "^26.1.0",
-    "prettier": "^3.6.2",
-    "utf-8-validate": "^6.0.5"
+    "bufferutil": "^4.1.0",
+    "jsdom": "^27.4.0",
+    "prettier": "^3.7.4",
+    "utf-8-validate": "^6.0.6"
   }
 }
