@@ -2,7 +2,7 @@
   "name": "env-protector",
   "displayName": "Env Protector",
   "description": "Protect your secrets from being exposed",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "engines": {
     "vscode": "^1.108.0"
   },
