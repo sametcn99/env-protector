@@ -1,12 +1,6 @@
 # Env Protector
 
-![Made For VSCode](https://img.shields.io/badge/Made%20for-VSCode-1f425f.svg)
-![License](https://img.shields.io/github/license/sametcn99/env-protector.svg)
-![Stars](https://img.shields.io/github/stars/sametcn99/env-protector.svg)
-![Watchers](https://img.shields.io/github/watchers/sametcn99/env-protector.svg)
-![Release](https://img.shields.io/github/release/sametcn99/env-protector.svg)
-[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/sametcn99.env-protector?label=VS%20Marketplace&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=sametcn99.env-protector)
-[![Open VSX](https://img.shields.io/open-vsx/v/sametcn99/env-protector?label=Open%20VSX&logo=eclipse-ide)](https://open-vsx.org/extension/sametcn99/env-protector)
+[GitHub](https://github.com/sametcn99/env-protector) | [Releases](https://github.com/sametcn99/env-protector/releases) | [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=sametcn99.env-protector) | [Open VSX](https://open-vsx.org/extension/sametcn99/env-protector)
 
 ![Banner](assets/banner.png)
 
@@ -133,9 +127,7 @@ Thank you for your contributions!
 
 ## Support
 
-If you find this extension helpful, please consider **starring the repository** on GitHub! It helps the project gain visibility and encourages further development.
-
-[![Star on GitHub](https://img.shields.io/github/stars/sametcn99/env-protector.svg?style=social)](https://github.com/sametcn99/env-protector)
+If you find this extension helpful, please consider **starring the repository** on [GitHub](https://github.com/sametcn99/env-protector)! It helps the project gain visibility and encourages further development.
 
 ## License
 
