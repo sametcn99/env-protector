@@ -1,13 +1,12 @@
 import * as vscode from 'vscode'
-import { getMaskedView } from './utils/get-masked-view'
 import { name } from '.././package.json'
-import fs from 'fs'
 import { addEnvVariable } from './commands/add-env-variable'
-import { maskEnvValues } from './commands/mask-env-values'
-import { showEnvFiles } from './commands/show-env-files'
-import { hideEnvFiles } from './commands/hide-env-files'
 import { editEnvVariable } from './commands/edit-env-variable'
+import { hideEnvFiles } from './commands/hide-env-files'
+import { maskEnvValues } from './commands/mask-env-values'
 import { removeEnvVariable } from './commands/remove-env-variable'
+import { showEnvFiles } from './commands/show-env-files'
+import { getMaskedView } from './utils/get-masked-view'
 
 /**
  * This method is called when your extension is activated

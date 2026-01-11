@@ -8,9 +8,7 @@
   },
   "publisher": "sametcn99",
   "icon": "icon.png",
-  "categories": [
-    "Other"
-  ],
+  "categories": ["Other"],
   "keywords": [
     ".env",
     "cloak",
@@ -98,21 +96,19 @@
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
-    "lint": "eslint src",
     "test": "vscode-test",
-    "prettier": "npx prettier . --write",
-    "vsce": "vsce package"
+    "vsce": "vsce package",
+    "lint": "biome check . --write",
+    "format": "biome format . --write"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.11",
     "@types/jsdom": "^27.0.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "25.x",
     "@types/vscode": "^1.108.1",
-    "@typescript-eslint/eslint-plugin": "^8.52.0",
-    "@typescript-eslint/parser": "^8.52.0",
     "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2",
-    "eslint": "^9.39.2",
     "node-loader": "^2.1.0",
     "ts-loader": "^9.5.4",
     "typescript": "^5.9.3",
@@ -122,7 +118,6 @@
   "dependencies": {
     "bufferutil": "^4.1.0",
     "jsdom": "^27.4.0",
-    "prettier": "^3.7.4",
     "utf-8-validate": "^6.0.6"
   }
 }

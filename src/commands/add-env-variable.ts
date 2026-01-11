@@ -1,6 +1,6 @@
+import fs from 'fs'
 import * as vscode from 'vscode'
 import { name } from '.././../package.json'
-import fs from 'fs'
 
 export const addEnvVariable = vscode.commands.registerCommand(
   `${name}.add-env-variable`,
