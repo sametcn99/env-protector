@@ -80,6 +80,7 @@
         "viewType": "env-protector.envFileEditor",
         "displayName": "env-protector Environment File Editor",
         "priority": "default",
+        "diffEditorPriority": "option",
         "selector": [
           {
             "filenamePattern": "**/.env*"
