@@ -4,7 +4,7 @@
   "description": "Protect your secrets from being exposed",
   "version": "1.0.12",
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.120.0"
   },
   "publisher": "sametcn99",
   "icon": "icon.png",
@@ -80,6 +80,7 @@
         "viewType": "env-protector.envFileEditor",
         "displayName": "env-protector Environment File Editor",
         "priority": "default",
+        "diffEditorPriority": "option",
         "selector": [
           {
             "filenamePattern": "**/.env*"
