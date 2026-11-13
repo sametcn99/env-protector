@@ -6,9 +6,9 @@
 
 ## Why this extension?
 
-In the modern development era, live streaming, screen sharing, and recording are part of daily routines. However, most existing VS Code extensions that manage environment variables have a critical flaw: they process `.env` files only *after* the file has been opened. This results in a brief millisecond window where sensitive keys, API tokens, and passwords might be visible on screen before being hidden or masked. For streamers and security-conscious developers, this split-second exposure is unacceptable.
+In the modern development era, live streaming, screen sharing, and recording are part of daily routines. However, most existing VS Code extensions that manage environment variables have a critical flaw: they process `.env` files only _after_ the file has been opened. This results in a brief millisecond window where sensitive keys, API tokens, and passwords might be visible on screen before being hidden or masked. For streamers and security-conscious developers, this split-second exposure is unacceptable.
 
-**Env Protector** solves this problem essentially by intercepting the file open request. Instead of reacting to an opened file, it proactively asks you *how* you want to view the file before it is rendered. This "security-first" architecture ensures that sensitive data never hits the screen unless you explicitly authorize it, providing a robust layer of privacy for your development environment.
+**Env Protector** solves this problem essentially by intercepting the file open request. Instead of reacting to an opened file, it proactively asks you _how_ you want to view the file before it is rendered. This "security-first" architecture ensures that sensitive data never hits the screen unless you explicitly authorize it, providing a robust layer of privacy for your development environment.
 
 ## Features
 
@@ -25,7 +25,7 @@ In the modern development era, live streaming, screen sharing, and recording are
   - **Add Variable**: Insert new key-value pairs via the Command Palette.
   - **Edit Variable**: Modify existing values safely through input boxes.
   - **Remove Variable**: Delete keys without exposing the rest of the file content.
-  
+
   ![Add Environment Value](assets/add.gif)
   ![Edit Environment Value](assets/edit.gif)
   ![Remove Environment Value](assets/remove.gif)
@@ -48,7 +48,7 @@ If you want to build **Env Protector** from source, follow these steps:
 
 ### Prerequisites
 
-- **Node.js** (version 14 or higher)
+- **Node.js** (version 22.22.2 or higher)
 - **npm** (comes with Node.js)
 - **Git**
 

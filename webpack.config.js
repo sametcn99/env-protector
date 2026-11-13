@@ -30,7 +30,7 @@ const extensionConfig = {
   stats: {
     errorDetails: true,
   },
-  ignoreWarnings: [/Can't resolve 'canvas'/],
+  ignoreWarnings: [/Can't resolve '@napi-rs\/canvas'/],
   module: {
     rules: [
       {

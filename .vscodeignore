@@ -8,7 +8,7 @@ src/**
 webpack.config.js
 vsc-extension-quickstart.md
 **/tsconfig.json
-**/eslint.config.mjs
+biome.json
 **/*.map
 **/*.ts
 **/.vscode-test.*

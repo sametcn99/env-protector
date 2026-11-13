@@ -2,9 +2,9 @@
   "name": "env-protector",
   "displayName": "Env Protector",
   "description": "Protect your secrets from being exposed",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.146.0"
   },
   "publisher": "sametcn99",
   "icon": "icon.png",
@@ -102,25 +102,20 @@
     "format": "biome format . --write"
   },
   "devDependencies": {
-    "@types/jsdom": "^21.1.7",
+    "@biomejs/biome": "2.6.7",
+    "@types/jsdom": "^30.0.0",
     "@types/mocha": "^10.0.10",
-    "@types/node": "24.x",
-    "@types/vscode": "^1.103.0",
-    "@typescript-eslint/eslint-plugin": "^8.43.0",
-    "@typescript-eslint/parser": "^8.43.0",
-    "@vscode/test-cli": "^0.0.11",
-    "@vscode/test-electron": "^2.5.2",
-    "eslint": "^9.35.0",
+    "@types/node": "26.x",
+    "@types/vscode": "^1.146.0",
+    "@vscode/test-cli": "^0.0.15",
+    "@vscode/test-electron": "^3.1.0",
     "node-loader": "^2.1.0",
-    "ts-loader": "^9.5.4",
-    "typescript": "^5.9.2",
-    "webpack": "^5.101.3",
-    "webpack-cli": "^6.0.1"
+    "ts-loader": "^9.6.2",
+    "typescript": "^6.0.3",
+    "webpack": "^5.112.2",
+    "webpack-cli": "^7.3.1"
   },
   "dependencies": {
-    "bufferutil": "^4.0.9",
-    "jsdom": "^26.1.0",
-    "prettier": "^3.6.2",
-    "utf-8-validate": "^6.0.5"
+    "jsdom": "^31.0.1"
   }
 }
