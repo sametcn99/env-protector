@@ -39,7 +39,11 @@
     "type": "git",
     "url": "https://github.com/sametcn99/env-protector"
   },
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:dotenv",
+    "workspaceContains:**/.env*",
+    "onStartupFinished"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
@@ -79,7 +83,10 @@
       {
         "viewType": "env-protector.envFileEditor",
         "displayName": "env-protector Environment File Editor",
-        "priority": "default",
+        "priority": {
+          "textEditor": "default",
+          "diffEditor": "default"
+        },
         "selector": [
           {
             "filenamePattern": "**/.env*"
@@ -98,6 +105,7 @@
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "test": "vscode-test",
     "vsce": "vsce package",
+    "generate-assets": "npm run compile && node scripts/generate-assets.js",
     "lint": "biome check . --write",
     "format": "biome format . --write"
   },

@@ -21,6 +21,9 @@ In the modern development era, live streaming, screen sharing, and recording are
 - **Secure Masked View**: When you choose to view a file securely, the extension renders a virtual document where all values are replaced with asterisks (masking). This allows you to verify the presence of keys and structure without exposing the actual secrets (values).
   ![Masked Variables](assets/masked.png)
 
+- **Masked Git Diff Comparison**: When opening `.env` diffs from Source Control, **Env Protector** intercepts both sides of the comparison. You can either open the full side-by-side diff in VS Code's built-in diff editor, or view a color-coded, line-aligned **Masked Diff View** (`+ added`, `~ modified`, `- removed`) where changed values and comments are highlighted without ever revealing raw secrets.
+  ![Masked Diff Comparison](assets/diff-masked.png)
+
 - **Safe Variable Management**: Manage your environment variables without ever opening the file itself:
   - **Add Variable**: Insert new key-value pairs via the Command Palette.
   - **Edit Variable**: Modify existing values safely through input boxes.

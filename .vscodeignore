@@ -1,5 +1,7 @@
 .vscode/**
 .vscode-test/**
+.github/**
+scripts/**
 out/**
 node_modules/**
 src/**
@@ -12,3 +14,4 @@ biome.json
 **/*.map
 **/*.ts
 **/.vscode-test.*
+*.vsix

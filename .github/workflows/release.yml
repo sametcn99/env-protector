@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+      - "[0-9]*.[0-9]*.[0-9]*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build, Release & Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Biome check
+        run: npx @biomejs/biome check .
+
+      - name: Run extension tests
+        run: xvfb-run -a npm test
+
+      - name: Build production bundle
+        run: npm run package
+
+      - name: Extract version and package VSIX
+        id: package
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          VSIX_FILE="env-protector-${VERSION}.vsix"
+          npx --yes @vscode/vsce package --no-dependencies -o "${VSIX_FILE}"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "vsix_file=${VSIX_FILE}" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.package.outputs.vsix_file }}
+          generate_release_notes: true
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.package.outputs.vsix_file }}
+          path: ${{ steps.package.outputs.vsix_file }}
